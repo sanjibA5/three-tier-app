@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # creationTimestamp: null
+  labels:
+    app: frontend-app
+    env: demo
+  name: frontend-app
+  namespace: three-tier-app-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-app
+  # strategy: {}
+  template:
+    metadata:
+      # creationTimestamp: null
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+      - image: us-docker.pkg.dev/windy-album-477918-i6/three-tier-artifact-reg/frontend-app:v1
+        name: frontend-app
+        env:
+          - name: REACT_APP_BACKEND_URL
+            value: http://my-backend-service:3500/api/tasks
+
+  
+# status: {}
